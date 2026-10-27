@@ -57,7 +57,21 @@ public final class NMSHandler {
      * @return {@code true} if {@link #getVersion()} is lexicographically >= {@code versionPrefix}
      */
     public static boolean isVersionAtLeast(String versionPrefix) {
-        return VERSION.compareTo(versionPrefix) >= 0;
+        final String[] current = VERSION.split("\\.");
+        final String[] target = versionPrefix.split("\\.");
+        final int len = Math.max(current.length, target.length);
+        for (int i = 0; i < len; i++) {
+            int c = 0;
+            int t = 0;
+            if (i < current.length) {
+                try { c = Integer.parseInt(current[i]); } catch (Exception ignored) {}
+            }
+            if (i < target.length) {
+                try { t = Integer.parseInt(target[i]); } catch (Exception ignored) {}
+            }
+            if (c != t) return c > t;
+        }
+        return true;
     }
 
     /**

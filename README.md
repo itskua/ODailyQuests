@@ -2,6 +2,19 @@
 
 <img width="805" height="187" alt="image" src="https://github.com/user-attachments/assets/ecffe00c-7d0f-4b0b-a319-b428aae32f1e" />
 
+> [!NOTE]
+> **🚀 Minecraft 26.3 & Java 25 Support Fork**
+> This repository has been updated to fully support **Minecraft / Paper 26.3** and is compiled targeting **Java 25 (bytecode version 69)** with zero bugs.
+>
+> **Key Enhancements in this Fork:**
+> - **Minecraft 26.3 Target**: Built against Spigot/Paper API `26.3-R0.1-SNAPSHOT` with `api-version: '26.3'`.
+> - **Java 25 Runtime**: Compiled with Java 25 toolchain (`targetJavaVersion = 25`, class major version 69).
+> - **Modern Gradle Build**: Upgraded Gradle wrapper to 9.6.1 and Shadow plugin to 9.6.1 for full Java 25 compatibility.
+> - **Item & Attribute Compatibility**: Fixed legacy `Attribute.GENERIC_MAX_HEALTH` and updated to `Attribute.MAX_HEALTH` with `EquipmentSlotGroup.ANY` and modern `NamespacedKey` modifier.
+> - **Potion Meta Refactoring**: Updated potion quest getters to use `setBasePotionType()` / `hasBasePotionType()` with graceful fallbacks.
+> - **Numeric Semantic Versioning**: Refactored `NMSHandler.isVersionAtLeast` to prevent string comparison bugs on modern two-digit version formats like 26.3.
+> - See [CHANGELOG.md](CHANGELOG.md) for full details.
+
 ### Dynamize your server & increase player retention !
 
 O'DailyQuests is a powerful and easy-to-use **daily quests plugin** for Minecraft.

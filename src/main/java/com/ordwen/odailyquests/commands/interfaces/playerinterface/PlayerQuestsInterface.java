@@ -17,8 +17,10 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -647,7 +649,7 @@ public class PlayerQuestsInterface extends InterfaceItemGetter {
             itemMeta.addEnchant(Enchantment.SILK_TOUCH, 1, false);
         }
 
-        itemMeta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(), "dummy", 0, AttributeModifier.Operation.ADD_NUMBER));
+        itemMeta.addAttributeModifier(Attribute.MAX_HEALTH, new AttributeModifier(NamespacedKey.minecraft("dummy"), 0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.ANY));
         itemMeta.addItemFlags(ItemFlag.values());
     }
 

@@ -360,16 +360,30 @@ public abstract class ItemQuest extends AbstractQuest {
         Debugger.write("ItemQuest:isRequiredItem: Required item is a potion.");
         final PotionMeta reqMeta = (PotionMeta) required.getItemMeta();
         final PotionMeta provMeta = (PotionMeta) provided.getItemMeta();
+        if (reqMeta == null || provMeta == null) return false;
 
-        final boolean sameType = reqMeta.getBasePotionData().getType() == provMeta.getBasePotionData().getType();
-        final boolean sameUpgrade = reqMeta.getBasePotionData().isUpgraded() == provMeta.getBasePotionData().isUpgraded();
-        final boolean sameExtended = reqMeta.getBasePotionData().isExtended() == provMeta.getBasePotionData().isExtended();
+        try {
+            if (reqMeta.hasBasePotionType() && provMeta.hasBasePotionType()) {
+                final boolean sameType = reqMeta.getBasePotionType() == provMeta.getBasePotionType();
+                if (!sameType) Debugger.write("ItemQuest:isRequiredItem: Potion base type is different.");
+                return sameType;
+            }
+        } catch (NoSuchMethodError | NoSuchFieldError ignored) {
+        }
 
-        if (!sameType) Debugger.write("ItemQuest:isRequiredItem: Potion type is different.");
-        if (!sameUpgrade) Debugger.write("ItemQuest:isRequiredItem: Potion is upgraded.");
-        if (!sameExtended) Debugger.write("ItemQuest:isRequiredItem: Potion is extended.");
+        if (reqMeta.getBasePotionData() != null && provMeta.getBasePotionData() != null) {
+            final boolean sameType = reqMeta.getBasePotionData().getType() == provMeta.getBasePotionData().getType();
+            final boolean sameUpgrade = reqMeta.getBasePotionData().isUpgraded() == provMeta.getBasePotionData().isUpgraded();
+            final boolean sameExtended = reqMeta.getBasePotionData().isExtended() == provMeta.getBasePotionData().isExtended();
 
-        return sameType && sameUpgrade && sameExtended;
+            if (!sameType) Debugger.write("ItemQuest:isRequiredItem: Potion type is different.");
+            if (!sameUpgrade) Debugger.write("ItemQuest:isRequiredItem: Potion is upgraded.");
+            if (!sameExtended) Debugger.write("ItemQuest:isRequiredItem: Potion is extended.");
+
+            return sameType && sameUpgrade && sameExtended;
+        }
+
+        return false;
     }
 
     /**

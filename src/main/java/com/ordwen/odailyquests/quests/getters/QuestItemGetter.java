@@ -317,7 +317,23 @@ public class QuestItemGetter extends ItemGetter implements IQuestItem {
             potionMeta = (PotionMeta) requiredItem.getItemMeta();
             if (potionMeta == null) return null;
 
-            potionMeta.setBasePotionData(new PotionData(potionType, extended, upgraded));
+            PotionType resolvedType = potionType;
+            if (upgraded) {
+                try {
+                    resolvedType = PotionType.valueOf("STRONG_" + potionType.name());
+                } catch (IllegalArgumentException ignored) {
+                }
+            } else if (extended) {
+                try {
+                    resolvedType = PotionType.valueOf("LONG_" + potionType.name());
+                } catch (IllegalArgumentException ignored) {
+                }
+            }
+            try {
+                potionMeta.setBasePotionType(resolvedType);
+            } catch (NoSuchMethodError | NoSuchFieldError e) {
+                potionMeta.setBasePotionData(new PotionData(potionType, extended, upgraded));
+            }
         }
 
         return potionMeta;
